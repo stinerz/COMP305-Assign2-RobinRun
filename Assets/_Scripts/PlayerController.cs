@@ -19,8 +19,9 @@ public class PlayerController : MonoBehaviour {
 
 	//PUBLIC INSTANCE VARIABLES
 	public float Velocity = 10f; 
+	public float JumpForce = 100f;
 	public Camera camera; //reference to the camera object 
-	public float JumpForce = 80f;
+
 
 	// Use this for initialization
 	void Start () {
@@ -46,16 +47,19 @@ public class PlayerController : MonoBehaviour {
 			}
 			//Debug.Log (this._move); 
 
+
+			//check if input is present for jumping 
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				this._jump = 1f; 
-			} else {
-				this._jump = 0f; 
-			}
-		} 
-
-		//Adding force to rigid body right or left, move is multipled by the velocity 
-		this._rigidbody.AddForce (new Vector2 (this._move * this.Velocity, this._jump * this.JumpForce), ForceMode2D.Force); 
-
+			} 
+					
+			//Adding force to rigid body right or left, move is multipled by the velocity 
+			this._rigidbody.AddForce (new Vector2 (this._move * this.Velocity, this._jump * this.JumpForce), ForceMode2D.Force); 
+		} else {
+			this._move = 0f; 
+			this._jump = 0f; 
+		}
+			
 		//Camera - take the players position 
 		this.camera.transform.position = new Vector3 (this._transform.position.x, -5.8f, -10f); 
 
@@ -66,6 +70,7 @@ public class PlayerController : MonoBehaviour {
 	private void _initialize(){
 		this._transform = GetComponent<Transform> (); 
 		this._rigidbody = GetComponent < Rigidbody2D> (); 
+		this._spawnPoint = GameObject.FindWithTag ("SpawnPoint");
 		this._move = 0f; 
 		this._isFacingRight = true;
 		this._isGrounded = false; 
@@ -77,6 +82,15 @@ public class PlayerController : MonoBehaviour {
 			this._transform.localScale = new Vector2 (0.3f, 0.3f);
 		} else {
 			this._transform.localScale = new Vector2 (-0.3f, 0.3f);
+		}
+	}
+		
+	private void OnCollisionEnter2D(Collision2D other) {
+		if (other.gameObject.CompareTag ("Enemy")) {
+			// move the player's position to the spawn point's position
+			this._transform.position = this._spawnPoint.transform.position;
+			//this.DeathSound.Play ();
+			//this._gameController.LivesValue -= 1;
 		}
 	}
 
