@@ -6,8 +6,7 @@ public class CheckPointController : MonoBehaviour {
 	// PRIVATE INSTANCE VARIABLES
 	private Transform _transform;
 
-	// PUBLIC INSTANCE VARIABLES (FOR TESTING)
-
+	// PUBLIC INSTANCE VARIABLES
 	public GameObject SpawnPoint;
 
 
