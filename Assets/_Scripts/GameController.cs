@@ -1,20 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-	// reference to the UI namespace
-	using UnityEngine.UI;
-
-	// reference to manage my scenes
-	using UnityEngine.SceneManagement;
+using UnityEngine.UI;// reference to the UI namespace
+using UnityEngine.SceneManagement;// reference to manage my scenes
 
 	public class GameController : MonoBehaviour {
 		// PRIVATE INSTANCE VARIABLES ++++++++++++++++++
 		private int _livesValue;
 		private int _scoreValue;
 
-		[Header("UI Objects")]
+		[Header("UI Objects")] //++++++++++++++++++++++++
 		public Text LivesLabel;
 		public Text ScoreLabel;
+		public Text GameOverLabel;
+		public Text FinalScoreLabel;
+		public Button RestartButton;
+
 
 		// PUBLIC PROPERTIES +++++++++++++++++++++++++++
 		public int LivesValue {
@@ -50,6 +50,7 @@ using System.Collections;
 		void Start () {
 			this.LivesValue = 5;
 			this.ScoreValue = 0;
+			this.RestartButton.gameObject.SetActive (false);
 
 		}
 
@@ -57,5 +58,19 @@ using System.Collections;
 		void Update () {
 		}
 
+	private void _endGame() {
+		//this.GameOverLabel.gameObject.SetActive (true);
+		//this.FinalScoreLabel.text = "Final Score: " + this.ScoreValue;
+		//this.FinalScoreLabel.gameObject.SetActive (true);
+		this.RestartButton.gameObject.SetActive (true);
+		this.ScoreLabel.gameObject.SetActive (false);
+		this.LivesLabel.gameObject.SetActive (false);
+	}
 
+	// PUBLIC METHODS ++++++++++++++++++++++++++++++
+	public void RestartButton_Click() {
+		SceneManager.LoadScene ("Main");
+	}
+		
+			
 	}

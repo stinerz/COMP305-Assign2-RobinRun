@@ -49,6 +49,7 @@
      <Compile Include="Assets\_Scripts\EnemyController.cs" />
      <Compile Include="Assets\_Scripts\GameController.cs" />
      <Compile Include="Assets\_Scripts\KillScript.cs" />
+     <Compile Include="Assets\_Scripts\LargeEnemyController.cs" />
      <Compile Include="Assets\_Scripts\MenuController.cs" />
      <Compile Include="Assets\_Scripts\PlayerController.cs" />
  <Reference Include="UnityEngine.Networking">

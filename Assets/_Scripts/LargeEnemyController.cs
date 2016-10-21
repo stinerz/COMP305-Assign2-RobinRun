@@ -4,7 +4,7 @@ using System.Collections;
 /*Christina Kuo - 300721385 
  * Enemy Controller - controls the behaviour of the enemy*/
 
-public class EnemyController : MonoBehaviour {
+public class LargeEnemyController : MonoBehaviour {
 
 	// PRIVATE INSTANCE VARIABLES 
 	private Transform _transform;
@@ -31,14 +31,14 @@ public class EnemyController : MonoBehaviour {
 	// Update is called once per frame (Physics)
 	void FixedUpdate () {
 		if (this._isGrounded) {  // check if the object is grounded 
-			
+
 			this._rigidbody.velocity = new Vector2(this._transform.localScale.x, 0) * this.Speed; // move the object in the direction of his local scale
 
 			this._isGroundAhead = Physics2D.Linecast (
 				this.SightStart.position,
 				this.SightEnd.position,
 				1 << LayerMask.NameToLayer ("Solid"));
-		
+
 			if (this._isGroundAhead == false) {
 				// flip the direction
 				this._flip();
@@ -46,8 +46,8 @@ public class EnemyController : MonoBehaviour {
 			// for debugging purposes only
 			Debug.DrawLine(this.SightStart.position, this.SightEnd.position);
 
-			}
 		}
+	}
 
 	private void OnCollisionEnter2D(Collision2D other) {
 		if (other.gameObject.CompareTag ("Enemy")) {
@@ -61,7 +61,7 @@ public class EnemyController : MonoBehaviour {
 			this._isGrounded = true;
 		}
 	}
-		
+
 
 	// object is not grounded if it leaves the platform
 	private void OnCollisionExit2D(Collision2D other) {
@@ -74,10 +74,10 @@ public class EnemyController : MonoBehaviour {
 	 * This method flips the character's bitmap across the x-axis
 	 */
 	private void _flip () {
-		if (this._transform.localScale.x == 1f) {
-			this._transform.localScale = new Vector2 (-1f, 1f);
+		if (this._transform.localScale.x == 5f) {
+			this._transform.localScale = new Vector2 (-5f, 5f);
 		} else {
-			this._transform.localScale = new Vector2 (1f, 1f);
+			this._transform.localScale = new Vector2 (5f, 5f);
 		}
 	}
 }

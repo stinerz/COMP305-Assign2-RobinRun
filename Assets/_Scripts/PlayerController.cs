@@ -10,18 +10,17 @@ public class PlayerController : MonoBehaviour {
 	private float _jump;
 	private bool _isFacingRight;
 	private bool _isGrounded;
-
+	private GameObject _gameControllerObject;
 	private GameObject _camera;
 	private GameObject _spawnPoint;
-	private GameObject _gameControllerObject;
-	private GameController _gameController;
+
 
 
 	//PUBLIC INSTANCE VARIABLES
 	public float Velocity = 10f; 
 	public float JumpForce = 100f;
 	public Camera camera; //reference to the camera object 
-
+	public GameController GameController; //reference to the game controller object 
 
 	// Use this for initialization
 	void Start () {
@@ -90,9 +89,16 @@ public class PlayerController : MonoBehaviour {
 			// move the player's position to the spawn point's position
 			this._transform.position = this._spawnPoint.transform.position;
 			//this.DeathSound.Play ();
-			//this._gameController.LivesValue -= 1;
+			this.GameController.LivesValue -= 1;
+		}
+
+		if (other.gameObject.CompareTag ("Coin")) {
+			Destroy (other.gameObject);
+			//this.CoinSound.Play ();
+			this.GameController.ScoreValue += 20;
 		}
 	}
+
 
 	private void OnCollisionStay2D(Collision2D other){ //checks if still colliding after 
 		if (other.gameObject.CompareTag("Platform")){
