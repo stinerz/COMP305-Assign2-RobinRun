@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
 	private GameObject _spawnPoint;
 
 	public AudioSource CoinSound;
+	public AudioSource Hit_Hurt8; 
 
 	//PUBLIC INSTANCE VARIABLES
 	public float Velocity = 10f; 
@@ -88,7 +89,7 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.CompareTag ("Enemy")) {
 			// move the player's position to the spawn point's position
 			this._transform.position = this._spawnPoint.transform.position;
-			//this.DeathSound.Play ();
+			this.Hit_Hurt8.Play ();
 			this.GameController.LivesValue -= 1;
 		}
 
