@@ -11,9 +11,6 @@ using UnityEngine.SceneManagement;// reference to manage my scenes
 		[Header("UI Objects")] //++++++++++++++++++++++++
 		public Text LivesLabel;
 		public Text ScoreLabel;
-		public Text GameOverLabel;
-		public Text FinalScoreLabel;
-		public Button RestartButton;
 
 
 		// PUBLIC PROPERTIES +++++++++++++++++++++++++++
@@ -50,7 +47,6 @@ using UnityEngine.SceneManagement;// reference to manage my scenes
 		void Start () {
 			this.LivesValue = 5;
 			this.ScoreValue = 0;
-			this.RestartButton.gameObject.SetActive (false);
 
 		}
 
@@ -58,19 +54,4 @@ using UnityEngine.SceneManagement;// reference to manage my scenes
 		void Update () {
 		}
 
-	private void _endGame() {
-		//this.GameOverLabel.gameObject.SetActive (true);
-		//this.FinalScoreLabel.text = "Final Score: " + this.ScoreValue;
-		//this.FinalScoreLabel.gameObject.SetActive (true);
-		this.RestartButton.gameObject.SetActive (true);
-		this.ScoreLabel.gameObject.SetActive (false);
-		this.LivesLabel.gameObject.SetActive (false);
-	}
-
-	// PUBLIC METHODS ++++++++++++++++++++++++++++++
-	public void RestartButton_Click() {
-		SceneManager.LoadScene ("Main");
-	}
-		
-			
-	}
+}

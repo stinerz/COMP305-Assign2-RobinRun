@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour {
 	private GameObject _camera;
 	private GameObject _spawnPoint;
 
-
+	public AudioSource CoinSound;
 
 	//PUBLIC INSTANCE VARIABLES
 	public float Velocity = 10f; 
@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour {
 
 		if (other.gameObject.CompareTag ("Coin")) {
 			Destroy (other.gameObject);
-			//this.CoinSound.Play ();
+			this.CoinSound.Play ();
 			this.GameController.ScoreValue += 20;
 		}
 	}
