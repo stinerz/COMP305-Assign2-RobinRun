@@ -14,13 +14,11 @@ public class PlayerController : MonoBehaviour {
 	private GameObject _camera;
 	private GameObject _spawnPoint;
 
-	public AudioSource CoinSound;
-	public AudioSource Hit_Hurt8; 
 
 	//PUBLIC INSTANCE VARIABLES
 	public float Velocity = 10f; 
 	public float JumpForce = 100f;
-	public Camera camera; //reference to the camera object 
+	public new Camera camera; //reference to the camera object 
 	public GameController GameController; //reference to the game controller object 
 
 	// Use this for initialization
@@ -89,16 +87,36 @@ public class PlayerController : MonoBehaviour {
 		if (other.gameObject.CompareTag ("Enemy")) {
 			// move the player's position to the spawn point's position
 			this._transform.position = this._spawnPoint.transform.position;
-			this.Hit_Hurt8.Play ();
+			this.GameController.Hit_Hurt8.Play ();
 			this.GameController.LivesValue -= 1;
 		}
 
 		if (other.gameObject.CompareTag ("Coin")) {
 			Destroy (other.gameObject);
-			this.CoinSound.Play ();
+			this.GameController.CoinSound.Play ();
 			this.GameController.ScoreValue += 20;
 		}
+
+		if (other.gameObject.CompareTag ("Winner")) {
+			this.GameController.WinnerLabel.gameObject.SetActive (true); 
+			this.GameController.FinalScoreLabel.text = "FINAL SCORE: " + this.GameController.ScoreValue; 
+			this.GameController.FinalScoreLabel.gameObject.SetActive (true); 
+			this.GameController.ScoreLabel.gameObject.SetActive (false); 
+			this.GameController.LivesLabel.gameObject.SetActive (false); 
+			this.GameController.Castle.gameObject.SetActive (false); 
+			this.GameController.Ninja.SetActive (false); 
+			this.GameController.awesomeness.Play (); 
+		}
 	}
+
+	private void OnTrigger2D(Collider2D other){
+		if (other.gameObject.CompareTag ("Enemy")) {
+			this.GameController.Hit_Hurt8.Play ();
+			this.GameController.ScoreValue += 100; 
+			Destroy (other.gameObject); 
+		}
+	}
+		
 
 
 	private void OnCollisionStay2D(Collision2D other){ //checks if still colliding after 
@@ -106,6 +124,8 @@ public class PlayerController : MonoBehaviour {
 			this._isGrounded = true;
 		}
 	}
+
+
 		
 
 	private void OnCollisionExit2D(Collision2D other){ //leaving a collider, player is not grounded 
